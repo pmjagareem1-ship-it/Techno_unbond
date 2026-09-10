@@ -1,0 +1,2 @@
+import mongoose from "mongoose";
+const s=new mongoose.Schema({referrer:{type:mongoose.Schema.Types.ObjectId,ref:"User",required:true},referredUser:{type:mongoose.Schema.Types.ObjectId,ref:"User"},referralCode:String,status:{type:String,enum:["invited","registered","qualified","rewarded"],default:"invited"},rewardCredits:{type:Number,default:0}},{timestamps:true}); export default mongoose.model("Referral",s);

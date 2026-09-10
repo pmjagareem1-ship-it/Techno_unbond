@@ -1,0 +1,2 @@
+import mongoose from "mongoose";
+const s=new mongoose.Schema({name:{type:String,required:true},category:{type:String,enum:["panel","inverter","battery","solar-light","solar-pump","cable","accessory"],required:true},brand:String,capacity:String,price:{type:Number,required:true,min:0},stock:{type:Number,default:0},warrantyYears:Number,description:String,image:String,active:{type:Boolean,default:true}},{timestamps:true}); export default mongoose.model("Product",s);

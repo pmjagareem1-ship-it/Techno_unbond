@@ -1,0 +1,2 @@
+import mongoose from "mongoose";
+const s=new mongoose.Schema({user:{type:mongoose.Schema.Types.ObjectId,ref:"User",required:true},order:{type:mongoose.Schema.Types.ObjectId,ref:"Order"},amount:Number,type:{type:String,enum:["purchase","service","loan","refund","credit","coupon"]},status:{type:String,enum:["pending","success","failed","refunded"],default:"pending"},transactionId:String,invoiceUrl:String},{timestamps:true}); export default mongoose.model("Payment",s);

@@ -1,0 +1,1 @@
+import {Router} from "express"; import Subsidy from "../models/Subsidy.js"; import {auth,adminOnly} from "../middleware/authMiddleware.js"; const r=Router(); r.get("/",async(q,s)=>s.json(await Subsidy.find({active:true}).sort({createdAt:-1}))); r.post("/",auth,adminOnly,async(q,s)=>s.status(201).json(await Subsidy.create(q.body))); export default r;

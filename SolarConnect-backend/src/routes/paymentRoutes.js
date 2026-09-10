@@ -1,0 +1,1 @@
+import {Router} from "express"; import Payment from "../models/Payment.js"; import {auth} from "../middleware/authMiddleware.js"; const r=Router(); r.get("/my",auth,async(q,s)=>s.json(await Payment.find({user:q.user.id}).populate("order").sort({createdAt:-1}))); r.post("/",auth,async(q,s)=>s.status(201).json(await Payment.create({...q.body,user:q.user.id}))); export default r;

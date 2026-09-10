@@ -1,0 +1,2 @@
+import mongoose from "mongoose";
+const s=new mongoose.Schema({user:{type:mongoose.Schema.Types.ObjectId,ref:"User",required:true},serviceType:{type:String,enum:["installation","maintenance","cleaning","repair","inverter-service","panel-replacement","AMC"],required:true},date:{type:Date,required:true},timeSlot:String,address:String,status:{type:String,enum:["booked","confirmed","technician-assigned","in-progress","completed","cancelled"],default:"booked"},technician:String,notes:String},{timestamps:true}); export default mongoose.model("Service",s);

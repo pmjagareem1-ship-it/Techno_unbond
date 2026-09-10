@@ -1,0 +1,2 @@
+import mongoose from "mongoose";
+const s=new mongoose.Schema({user:{type:mongoose.Schema.Types.ObjectId,ref:"User",required:true,unique:true},panelCapacityKW:Number,inverterDetails:String,installationDate:Date,warrantyYears:Number,todayGenerationKWh:{type:Number,default:0},monthlyGenerationKWh:{type:Number,default:0},monthlyConsumptionKWh:{type:Number,default:0},estimatedSavings:{type:Number,default:0},maintenanceHistory:[{date:Date,type:String,notes:String}]},{timestamps:true}); export default mongoose.model("SolarSystem",s);

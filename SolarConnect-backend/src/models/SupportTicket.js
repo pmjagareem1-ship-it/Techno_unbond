@@ -1,0 +1,2 @@
+import mongoose from "mongoose";
+const s=new mongoose.Schema({user:{type:mongoose.Schema.Types.ObjectId,ref:"User",required:true},subject:String,category:{type:String,enum:["order","service","payment","loan","product","other"],default:"other"},message:String,status:{type:String,enum:["open","in-progress","resolved","closed"],default:"open"},replies:[{message:String,by:String,createdAt:{type:Date,default:Date.now}}]},{timestamps:true}); export default mongoose.model("SupportTicket",s);

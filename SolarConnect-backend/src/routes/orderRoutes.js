@@ -1,0 +1,4 @@
+import {Router} from "express"; import Order from "../models/Order.js"; import Product from "../models/Product.js"; import {auth,adminOnly} from "../middleware/authMiddleware.js"; const r=Router();
+r.get("/my",auth,async(req,res)=>res.json(await Order.find({user:req.user.id}).populate("items.product").sort({createdAt:-1})));
+r.post("/",auth,async(req,res)=>{const{items=[],...d}=req.body,n=[];let total=0;for(const i of items){const p=await Product.findById(i.product);if(!p)return res.status(400).json({message:"Invalid product"});const q=Math.max(1,Number(i.quantity||1));n.push({product:p._id,quantity:q,price:p.price});total+=p.price*q}res.status(201).json(await Order.create({...d,user:req.user.id,items:n,totalAmount:d.totalAmount??total}))});
+r.patch("/:id/status",auth,adminOnly,async(req,res)=>res.json(await Order.findByIdAndUpdate(req.params.id,{status:req.body.status},{new:true}))); export default r;

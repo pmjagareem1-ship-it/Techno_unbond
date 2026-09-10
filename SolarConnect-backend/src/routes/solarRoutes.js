@@ -1,0 +1,4 @@
+import {Router} from "express"; import {auth} from "../middleware/authMiddleware.js"; import SolarSystem from "../models/SolarSystem.js"; const r=Router();
+r.get("/system",auth,async(req,res)=>res.json(await SolarSystem.findOne({user:req.user.id})||null));
+r.post("/system",auth,async(req,res)=>res.json(await SolarSystem.findOneAndUpdate({user:req.user.id},{...req.body,user:req.user.id},{new:true,upsert:true,runValidators:true})));
+r.post("/calculator",(req,res)=>{const{monthlyBill=0,monthlyUnits=0,roofArea=0}=req.body;const a=monthlyUnits?monthlyUnits/120:1,b=roofArea?roofArea/100:20,k=Number(Math.max(1,Math.min(20,Math.min(a,b))).toFixed(1)),g=Math.round(k*120),s=Math.round(Math.min(monthlyBill,g*7));res.json({recommendedKW:k,estimatedGenerationKWh:g,monthlySavings:s,approximatePaybackYears:s?Number(((k*65000)/(s*12)).toFixed(1)):0})}); export default r;
